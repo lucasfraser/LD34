@@ -15,7 +15,7 @@ public class Graphics {
     SpriteBatch HUD;
 
     //TITLE SCREEN
-    boolean titleScreen = true;
+    boolean titleScreen = false;
     float tint = 0;
     boolean fadeIn = true;
 
@@ -56,7 +56,22 @@ public class Graphics {
         else{ //GAME RENDERING
 
             mainGame.begin();
+                if(SeasonRendering.season == 0){
+                    mainGame.draw(Images.summberBanner, 0, 450);
+                }
+                else if(SeasonRendering.season == 1){
 
+                }
+                else if(SeasonRendering.season == 2){
+                    mainGame.draw(Images.winterBanner, 0, 450);
+                }
+                else if(SeasonRendering.season == 3){
+
+                }
+                mainGame.draw(Images.grass, 0, 0);
+                for(int i = 0; i < 16; i++){
+                    mainGame.draw(Images.fence, i * Images.fence.getWidth()*2, 435, 64, 64);
+                }
             mainGame.end();
 
             seasonalOverlay.begin();
@@ -64,7 +79,8 @@ public class Graphics {
             seasonalOverlay.end();
 
             HUD.begin();
-
+                HUD.draw(Images.sbay, Gdx.graphics.getWidth() - Images.sbay.getWidth() - 100, Gdx.graphics.getHeight() - Images.sbay.getHeight() - 80, 100, 100);
+                Seedbay.render(HUD);
             HUD.end();
         }
 

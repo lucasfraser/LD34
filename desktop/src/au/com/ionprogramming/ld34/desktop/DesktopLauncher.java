@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		config.title = "Floral Empire - LD34 - Ion Programming";
 		config.width = 1000;
 		config.height = 600;
+        config.resizable = false;
 		new LwjglApplication(new LD34(), config);
 	}
 }

@@ -11,11 +11,25 @@ public class Images {
     static Texture lucas;
     static Texture leaf;
     static Texture snow;
+    static Texture sbay;
+    static Texture seedBayIE;
+    public static Texture grass;
+    public static Texture summberBanner;
+    public static Texture winterBanner;
+    public static Texture fence;
+
 
     public static void loadImages(){
         ion = new Texture("IonProgrammingLogo.png");
         lucas = new Texture("lucas.png");
         leaf = new Texture("leaf.png");
         snow = new Texture("snow.png");
+        sbay = new Texture("sbay.png");
+        seedBayIE = new Texture("seedBayIE.png");
+        grass = new Texture("grass.png");
+        summberBanner = new Texture("summer.png");
+        winterBanner = new Texture("winter.png");
+        fence = new Texture("fence.png");
+
     }
 }

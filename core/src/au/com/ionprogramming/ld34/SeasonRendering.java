@@ -11,7 +11,7 @@ import java.util.Random;
  */
 public class SeasonRendering {
 
-    static int season = 1;     //0 - Summer, 1 - Autumn, 2 - Winter, 3 - Spring
+    static int season = 2;     //0 - Summer, 1 - Autumn, 2 - Winter, 3 - Spring
 
     static Random r = new Random();
 
