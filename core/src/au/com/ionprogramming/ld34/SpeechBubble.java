@@ -18,8 +18,6 @@ public class SpeechBubble {
     protected float y;
     protected float width;
     protected float height;
-    protected float fullHeight;
-    protected float progress = 0;
     protected float border = 0.1f;
     protected Color textCol;
     protected Color boxCol;
@@ -34,7 +32,7 @@ public class SpeechBubble {
         this.text = text;
         this.width = width;
         glyph.setText(font, text, 0, text.length() - 1, Color.FOREST, width, Align.left, true, null);
-        fullHeight = glyph.height;
+        height = glyph.height;
     }
 
     public SpeechBubble(String text, float width, Color textCol, Color boxCol){
@@ -46,40 +44,26 @@ public class SpeechBubble {
         this.text = text;
         this.width = width;
         glyph.setText(font, text, 0, text.length() - 1, textCol, width, Align.left, true, null);
-        fullHeight = glyph.height;
+        height = glyph.height;
     }
 
     public void render(SpriteBatch batch, ShapeRenderer r, float x, float y){
-        glyph.setText(font, text, 0, (int) progress, textCol, width, Align.left, true, null);
-        height = glyph.height;
-        if(progress < text.length()) {
-            progress += 0.5f;
-        }
-
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         r.begin(ShapeRenderer.ShapeType.Filled);
             r.setColor(boxCol);
-            r.rect(x - border, y + fullHeight - height, width + border * 2, height);
-            r.rect(x, y - border + fullHeight - height, width, border);
-            r.rect(x, y + fullHeight, width, border);
-            r.arc(x, y + fullHeight, border, 90, 90);
-            r.arc(x, y + fullHeight - height, border, 180, 90);
-            r.arc(x + width, y + fullHeight, border, 0, 90);
-            r.arc(x + width, y + fullHeight - height, border, 270, 90);
+            r.rect(x - border, y, width + border * 2, height);
+            r.rect(x, y - border, width, border);
+            r.rect(x, y + height, width, border);
+            r.arc(x, y + height, border, 90, 90);
+            r.arc(x, y, border, 180, 90);
+            r.arc(x + width, y + height, border, 0, 90);
+            r.arc(x + width, y, border, 270, 90);
         r.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
 
         batch.begin();
-            font.draw(batch, glyph, x, y + fullHeight);
+            font.draw(batch, glyph, x, y + height);
         batch.end();
-    }
-
-    public void resetProgress(){
-        progress = 0;
-    }
-
-    public float getProgress(){
-        return progress;
     }
 }

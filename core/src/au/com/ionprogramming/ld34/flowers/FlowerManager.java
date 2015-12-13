@@ -1,6 +1,7 @@
 package au.com.ionprogramming.ld34.flowers;
 
 import au.com.ionprogramming.ld34.Images;
+import au.com.ionprogramming.ld34.SpeechBubble;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
@@ -30,6 +31,22 @@ public class FlowerManager {
 
     public static FlowerBed[] flowerBeds = new FlowerBed[numBeds];
 
+    SpeechBubble bubble = new SpeechBubble("Hello there Dick Nose Joe! How fare thee this fine day?\nDo\nnew\nlines\nand\ttabs\nwork?", 100);
+
+    public static Flower[] flowerTypes = new Flower[]{
+            new Buttercup(),
+            new Buttermug(),
+            new Buttergoblet(),
+            new Poppy(),
+            new RoyalPoppy(),
+            new OpiumPoppy(),
+            new Bamboo(),
+            new Bluebell(),
+            new Pumpkin(),
+            new Pumpkin5(),
+            new HeartRose()
+    };
+
     public static void initFlowerBeds(){
         for(int n = 0; n < numBeds; n++){
             flowerBeds[n] = new FlowerBed();
@@ -37,6 +54,8 @@ public class FlowerManager {
                 addFlower(new Pumpkin5(), n, i);
             }
         }
+
+
     }
 
     public static void drawBedDirt(SpriteBatch batch){
