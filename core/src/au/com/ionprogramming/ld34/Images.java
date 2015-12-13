@@ -16,11 +16,17 @@ public class Images {
     public static Texture bedR;
     public static Texture exc1;
     public static Texture exc2;
+    public static Texture seasonDisplay;
+    public static Texture selectionSeasons;
+    public static Texture dayDisplay;
+    public static Texture selectionDays;
     static Texture sbay;
     static Texture seedBayIE;
     public static Texture grass;
-    public static Texture summberBanner;
+    public static Texture summerBanner;
     public static Texture winterBanner;
+    public static Texture autumnBanner;
+    public static Texture springBanner;
     public static Texture fence;
 
     public static Texture[] flower1;
@@ -43,8 +49,10 @@ public class Images {
         sbay = new Texture("sbay.png");
         seedBayIE = new Texture("seedBayIE.png");
         grass = new Texture("grass.png");
-        summberBanner = new Texture("summer.png");
+        summerBanner = new Texture("summer.png");
         winterBanner = new Texture("winter.png");
+        autumnBanner = new Texture("autumnBanner.png");
+        springBanner = new Texture("springBanner.png");
         fence = new Texture("fence.png");
 
         flower1 = new Texture[]{new Texture("flowers/flowers_00.png"), new Texture("flowers/flowers_01.png"), new Texture("flowers/flowers_02.png"), new Texture("flowers/flowers_03.png"), new Texture("flowers/flowers_04.png"), new Texture("flowers/flowers_05.png")};
@@ -54,5 +62,10 @@ public class Images {
         flower5 = new Texture[]{new Texture("flowers/flowers_24.png"), new Texture("flowers/flowers_25.png"), new Texture("flowers/flowers_26.png"), new Texture("flowers/flowers_27.png"), new Texture("flowers/flowers_28.png"), new Texture("flowers/flowers_29.png")};
         flower6 = new Texture[]{new Texture("flowers/flowers_30.png"), new Texture("flowers/flowers_31.png"), new Texture("flowers/flowers_32.png"), new Texture("flowers/flowers_33.png"), new Texture("flowers/flowers_34.png"), new Texture("flowers/flowers_35.png")};
 
+        seasonDisplay = new Texture("seasons.png");
+        selectionSeasons = new Texture("selection.png");
+
+        dayDisplay = new Texture("days.png");
+        selectionDays = new Texture("selectionDays.png");
     }
 }

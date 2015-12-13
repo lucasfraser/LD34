@@ -59,16 +59,16 @@ public class Graphics {
 
             mainGame.begin();
                 if(SeasonRendering.season == 0){
-                    mainGame.draw(Images.summberBanner, 0, 450);
+                    mainGame.draw(Images.summerBanner, 0, 450);
                 }
                 else if(SeasonRendering.season == 1){
-
+                    mainGame.draw(Images.autumnBanner, 0, 450);
                 }
                 else if(SeasonRendering.season == 2){
                     mainGame.draw(Images.winterBanner, 0, 450);
                 }
                 else if(SeasonRendering.season == 3){
-
+                    mainGame.draw(Images.springBanner, 0, 450);
                 }
                 mainGame.draw(Images.grass, 0, 0);
                 for(int i = 0; i < 16; i++){
@@ -82,7 +82,47 @@ public class Graphics {
             seasonalOverlay.end();
 
             HUD.begin();
+                HUD.draw(Images.seasonDisplay, Gdx.graphics.getWidth() / 2 - Images.seasonDisplay.getWidth() / 2, Gdx.graphics.getHeight() - Images.seasonDisplay.getHeight() / 2 - 20);
                 Seedbay.render(HUD);
+//
+//                System.out.println(Gdx.input.getX() + ", " + Gdx.input.getY());
+
+                if(SeasonRendering.season == 0){
+                    HUD.draw(Images.selectionSeasons, 240, Gdx.graphics.getHeight() - 34);
+                }
+                else if(SeasonRendering.season == 1){
+                    HUD.draw(Images.selectionSeasons, 380, Gdx.graphics.getHeight() - 34);
+                }
+                else if(SeasonRendering.season == 2){
+                    HUD.draw(Images.selectionSeasons, 513, Gdx.graphics.getHeight() - 34); //513
+                }
+                else if(SeasonRendering.season == 3){
+                    HUD.draw(Images.selectionSeasons, 641, Gdx.graphics.getHeight() - 34);
+                }
+
+                HUD.draw(Images.dayDisplay, Gdx.graphics.getWidth() / 2 - Images.dayDisplay.getWidth() / 2, Gdx.graphics.getHeight() - Images.dayDisplay.getHeight() / 2 - 55);
+
+                if(SeasonRendering.day == 0){
+                    HUD.draw(Images.selectionDays, 239, Gdx.graphics.getHeight() - 69);
+                }
+                else if(SeasonRendering.day == 1){
+                    HUD.draw(Images.selectionDays, 320, Gdx.graphics.getHeight() - 69);
+                }
+                else if(SeasonRendering.day == 2){
+                    HUD.draw(Images.selectionDays, 399, Gdx.graphics.getHeight() - 69);
+                }
+                else if(SeasonRendering.day == 3){
+                    HUD.draw(Images.selectionDays, 480, Gdx.graphics.getHeight() - 69);
+                }
+                else if(SeasonRendering.day == 4){
+                    HUD.draw(Images.selectionDays, 555, Gdx.graphics.getHeight() - 69);
+                }
+                else if(SeasonRendering.day == 5){
+                    HUD.draw(Images.selectionDays, 621, Gdx.graphics.getHeight() - 69);
+                }
+                else if(SeasonRendering.day == 6){
+                    HUD.draw(Images.selectionDays, 693, Gdx.graphics.getHeight() - 69);
+                }
             HUD.end();
         }
 
