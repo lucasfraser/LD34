@@ -23,6 +23,13 @@ public class Images {
     public static Texture winterBanner;
     public static Texture fence;
 
+    public static Texture[] flower1;
+    public static Texture[] flower2;
+    public static Texture[] flower3;
+    public static Texture[] flower4;
+    public static Texture[] flower5;
+    public static Texture[] flower6;
+
     public static void loadImages(){
         ion = new Texture("IonProgrammingLogo.png");
         lucas = new Texture("lucas.png");
@@ -39,6 +46,13 @@ public class Images {
         summberBanner = new Texture("summer.png");
         winterBanner = new Texture("winter.png");
         fence = new Texture("fence.png");
+
+        flower1 = new Texture[]{new Texture("flowers/flowers_00.png"), new Texture("flowers/flowers_01.png"), new Texture("flowers/flowers_02.png"), new Texture("flowers/flowers_03.png"), new Texture("flowers/flowers_04.png"), new Texture("flowers/flowers_05.png")};
+        flower2 = new Texture[]{new Texture("flowers/flowers_06.png"), new Texture("flowers/flowers_07.png"), new Texture("flowers/flowers_08.png"), new Texture("flowers/flowers_09.png"), new Texture("flowers/flowers_10.png"), new Texture("flowers/flowers_11.png")};
+        flower3 = new Texture[]{new Texture("flowers/flowers_12.png"), new Texture("flowers/flowers_13.png"), new Texture("flowers/flowers_14.png"), new Texture("flowers/flowers_15.png"), new Texture("flowers/flowers_16.png"), new Texture("flowers/flowers_17.png")};
+        flower4 = new Texture[]{new Texture("flowers/flowers_18.png"), new Texture("flowers/flowers_19.png"), new Texture("flowers/flowers_20.png"), new Texture("flowers/flowers_21.png"), new Texture("flowers/flowers_22.png"), new Texture("flowers/flowers_23.png")};
+        flower5 = new Texture[]{new Texture("flowers/flowers_24.png"), new Texture("flowers/flowers_25.png"), new Texture("flowers/flowers_26.png"), new Texture("flowers/flowers_27.png"), new Texture("flowers/flowers_28.png"), new Texture("flowers/flowers_29.png")};
+        flower6 = new Texture[]{new Texture("flowers/flowers_30.png"), new Texture("flowers/flowers_31.png"), new Texture("flowers/flowers_32.png"), new Texture("flowers/flowers_33.png"), new Texture("flowers/flowers_34.png"), new Texture("flowers/flowers_35.png")};
 
     }
 }
