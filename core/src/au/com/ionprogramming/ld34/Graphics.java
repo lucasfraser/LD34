@@ -82,7 +82,6 @@ public class Graphics {
             seasonalOverlay.end();
 
             HUD.begin();
-                HUD.draw(Images.sbay, Gdx.graphics.getWidth() - Images.sbay.getWidth() - 100, Gdx.graphics.getHeight() - Images.sbay.getHeight() - 80, 100, 100);
                 Seedbay.render(HUD);
             HUD.end();
         }
