@@ -75,6 +75,9 @@ public class Graphics {
                     mainGame.draw(Images.fence, i * Images.fence.getWidth()*2, 435, 64, 64);
                 }
                 FlowerManager.drawBedDirt(mainGame);
+                for(int n = 0; n < FlowerManager.numBeds; n++) {
+                    FlowerManager.drawBed(mainGame, n);
+                }
             mainGame.end();
 
             seasonalOverlay.begin();
@@ -125,8 +128,5 @@ public class Graphics {
                 }
             HUD.end();
         }
-
-
-
     }
 }

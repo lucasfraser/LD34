@@ -10,7 +10,7 @@ public class FlowerManager {
 
     public static final int scale = 2;
 
-    public static final int bedLength = 6;
+    public static final int bedLength = 10;
     public static final int numBeds = 4;
 
     public static final int numStages = 6;
@@ -18,45 +18,51 @@ public class FlowerManager {
     //Draw offsets
     public static final int xOffset = 150;
     public static final int yOffset = 100;
-    public static final int xStep = 64;
-    public static final int yStep = 48;
+    public static final int xStep = 40*scale;
+    public static final int yStep = 48*scale;
 
-    public static final int clickRange = 16;
+    public static final int clickRange = 16*scale;
 
     public static final int iconSpeed = 10;
-    public static final int iconHeight = 10;
+    public static final int iconHeight = 0*scale;
+
+    public static final int plantYOffset = -6*scale;
 
     public static FlowerBed[] flowerBeds = new FlowerBed[numBeds];
 
     public static void initFlowerBeds(){
         for(int n = 0; n < numBeds; n++){
             flowerBeds[n] = new FlowerBed();
+            for(int i = 0; i < bedLength; i++){
+                addFlower(new Pumpkin5(), n, i);
+            }
         }
     }
 
     public static void drawBedDirt(SpriteBatch batch){
-        int imgW = Images.bedC.getWidth();
-        int imgH = Images.bedC.getHeight();
+        int imgW = Images.bedC.getWidth()*scale;
+        int imgH = Images.bedC.getHeight()*scale;
         int bedWidth = bedLength*xStep;
         for(int n = 0; n < numBeds; n++){
-            int y = yOffset + ((numBeds - n - 1)*yStep - imgH)*scale;
-            for(int i = 0; i < (float)(bedWidth)/imgW; i++){
-                int x = xOffset + (i*imgW - imgW/2)*scale;
+            int y = yOffset + (numBeds - n - 1)*yStep - imgH;
+            int bedXOffset = -(int)((Math.ceil((float) (bedWidth) / imgW)*imgW - bedWidth)/2);
+            for(int i = 0; i < Math.ceil((float) (bedWidth) / imgW); i++){
+                int x = xOffset + bedXOffset + i*imgW - imgW/2;
                 if(i == 0){
-                    batch.draw(Images.bedL, x, y, imgW*scale, imgH*scale);
+                    batch.draw(Images.bedL, x, y, imgW, imgH);
                 }
-                else if(i >= (int)((float)(bedWidth)/imgW) - 1){
-                    batch.draw(Images.bedR, x, y, imgW*scale, imgH*scale);
+                else if(i >= Math.ceil((float)(bedWidth)/imgW) - 1){
+                    batch.draw(Images.bedR, x, y, imgW, imgH);
                 }
                 else{
-                    batch.draw(Images.bedC, x, y, imgW*scale, imgH*scale);
+                    batch.draw(Images.bedC, x, y, imgW, imgH);
                 }
             }
         }
     }
 
     public static void drawBed(SpriteBatch batch, int bedIndex){
-        flowerBeds[bedIndex].draw(batch, yOffset + (numBeds - bedIndex)*yStep);
+        flowerBeds[bedIndex].draw(batch, yOffset + (numBeds - bedIndex - 1)*yStep + plantYOffset);
     }
 
     public static void addFlowerBed(FlowerBed b, int bedIndex){
@@ -82,7 +88,7 @@ public class FlowerManager {
     public Flower getClickedFlower(int xClick, int yClick){
         int bedIndex = Math.round((float) (yClick - yOffset)/yStep);
         if(bedIndex >= 0 && bedIndex < numBeds){
-            if(Math.abs(yClick - (yOffset + bedIndex*yStep*scale)) <= clickRange*scale){
+            if(Math.abs(yClick - (yOffset + bedIndex*yStep)) <= clickRange){
                 return flowerBeds[numBeds - bedIndex - 1].getClickedFlower(xClick);
             }
         }

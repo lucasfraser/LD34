@@ -17,17 +17,17 @@ public class FlowerBed {
     public void draw(SpriteBatch batch, int y){
         for(int n = 0; n < FlowerManager.bedLength; n++){
             if(flowers[n] != null) {
-                flowers[n].draw(batch, FlowerManager.xOffset + n*FlowerManager.xStep*FlowerManager.scale, y);
-                if(flowers[n].getStage() == 4){
-                    int imgW = Images.exc1.getWidth();
-                    int imgH = Images.exc1.getHeight();
-                    int iconX = FlowerManager.xOffset + (n*FlowerManager.xStep - imgW/2)*FlowerManager.scale;
-                    int iconY = y + FlowerManager.iconHeight*FlowerManager.scale;
+                flowers[n].draw(batch, FlowerManager.xOffset + n*FlowerManager.xStep, y);
+                if(flowers[n].getStage() == 3){
+                    int imgW = Images.exc1.getWidth()*FlowerManager.scale;
+                    int imgH = Images.exc1.getHeight()*FlowerManager.scale;
+                    int iconX = FlowerManager.xOffset + n*FlowerManager.xStep - imgW/2;
+                    int iconY = y + FlowerManager.iconHeight;
                     if(flowers[n].getTimer() < FlowerManager.iconSpeed){
-                        batch.draw(Images.exc1, iconX, iconY, imgW*FlowerManager.scale, imgH*FlowerManager.scale);
+                        batch.draw(Images.exc1, iconX, iconY, imgW, imgH);
                     }
                     else{
-                        batch.draw(Images.exc2, iconX, iconY, imgW*FlowerManager.scale, imgH*FlowerManager.scale);
+                        batch.draw(Images.exc2, iconX, iconY, imgW, imgH);
                     }
                     if(flowers[n].getTimer() < 2*FlowerManager.iconSpeed){
                         flowers[n].incTimer();
@@ -53,9 +53,9 @@ public class FlowerBed {
     }
 
     public Flower getClickedFlower(int xClick){
-        int flowerIndex = Math.round((float) (xClick - FlowerManager.xOffset)/(FlowerManager.xStep*FlowerManager.scale));
+        int flowerIndex = Math.round((float) (xClick - FlowerManager.xOffset)/FlowerManager.xStep);
         if(flowerIndex >= 0 && flowerIndex < FlowerManager.bedLength){
-            if(Math.abs(xClick - (FlowerManager.xOffset + flowerIndex*FlowerManager.xStep*FlowerManager.scale)) <= FlowerManager.clickRange*FlowerManager.scale){
+            if(Math.abs(xClick - (FlowerManager.xOffset + flowerIndex*FlowerManager.xStep)) <= FlowerManager.clickRange){
                 return flowers[flowerIndex];
             }
         }
