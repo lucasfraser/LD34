@@ -3,6 +3,7 @@ package au.com.ionprogramming.ld34.flowers;
 import au.com.ionprogramming.ld34.Images;
 import au.com.ionprogramming.ld34.SpeechBubble;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 /**
  * Created by Sam on 13/12/2015.
@@ -31,7 +32,7 @@ public class FlowerManager {
 
     public static FlowerBed[] flowerBeds = new FlowerBed[numBeds];
 
-    SpeechBubble bubble = new SpeechBubble("Hello there Dick Nose Joe! How fare thee this fine day?\nDo\nnew\nlines\nand\ttabs\nwork?", 100);
+    static SpeechBubble bubble = new SpeechBubble("Hello there Dick Nose Joe! How fare thee this fine day?\nDo\nnew\nlines\nand\ttabs\nwork?", 100);
 
     public static Flower[] flowerTypes = new Flower[]{
             new Buttercup(),
@@ -54,8 +55,6 @@ public class FlowerManager {
                 addFlower(new Pumpkin5(), n, i);
             }
         }
-
-
     }
 
     public static void drawBedDirt(SpriteBatch batch){
@@ -78,6 +77,7 @@ public class FlowerManager {
                 }
             }
         }
+        bubble.render(batch, new ShapeRenderer(), 256, 256);
     }
 
     public static void drawBed(SpriteBatch batch, int bedIndex){

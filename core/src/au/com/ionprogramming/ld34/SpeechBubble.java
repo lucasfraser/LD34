@@ -18,7 +18,7 @@ public class SpeechBubble {
     protected float y;
     protected float width;
     protected float height;
-    protected float border = 0.1f;
+    protected float border = 6f;
     protected Color textCol;
     protected Color boxCol;
 
@@ -28,10 +28,10 @@ public class SpeechBubble {
         font = new BitmapFont();
         glyph = new GlyphLayout();
         font.setUseIntegerPositions(false);
-        font.getData().setScale(0.015f, 0.015f);
+        font.getData().setScale(1f, 1f);
         this.text = text;
         this.width = width;
-        glyph.setText(font, text, 0, text.length() - 1, Color.FOREST, width, Align.left, true, null);
+        glyph.setText(font, text, 0, text.length(), Color.SALMON, width, Align.left, true, null);
         height = glyph.height;
     }
 
@@ -43,11 +43,12 @@ public class SpeechBubble {
         font.setUseIntegerPositions(false);
         this.text = text;
         this.width = width;
-        glyph.setText(font, text, 0, text.length() - 1, textCol, width, Align.left, true, null);
+        glyph.setText(font, text, 0, text.length(), textCol, width, Align.left, true, null);
         height = glyph.height;
     }
 
     public void render(SpriteBatch batch, ShapeRenderer r, float x, float y){
+        batch.end();
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         r.begin(ShapeRenderer.ShapeType.Filled);
@@ -64,6 +65,5 @@ public class SpeechBubble {
 
         batch.begin();
             font.draw(batch, glyph, x, y + height);
-        batch.end();
     }
 }
