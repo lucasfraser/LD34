@@ -1,5 +1,6 @@
 package au.com.ionprogramming.ld34;
 
+import au.com.ionprogramming.ld34.flowers.FlowerManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -26,6 +27,7 @@ public class Graphics {
         HUD = new SpriteBatch();
         Images.loadImages();
         SeasonRendering.initSeasons();
+        FlowerManager.initFlowerBeds();
     }
 
     public void draw(){
@@ -72,6 +74,7 @@ public class Graphics {
                 for(int i = 0; i < 16; i++){
                     mainGame.draw(Images.fence, i * Images.fence.getWidth()*2, 435, 64, 64);
                 }
+                FlowerManager.drawBedDirt(mainGame);
             mainGame.end();
 
             seasonalOverlay.begin();
