@@ -17,6 +17,7 @@ public class Seedbay {
     public static boolean inSeedBay = false;
 
     static int currentPlant = 0;
+    static SpeechBubble name;
 
     public static void render(SpriteBatch batch, ShapeRenderer renderer) {
         batch.draw(Images.sbay, Gdx.graphics.getWidth() - Images.sbay.getWidth()*4 - 20, Gdx.graphics.getHeight() - Images.sbay.getHeight()*4 - 20, Images.sbay.getWidth()*4, Images.sbay.getHeight()*4);
@@ -51,7 +52,7 @@ public class Seedbay {
 
             batch.draw(FlowerManager.flowerTypes[currentPlant].getImage(3), 280, 290, 128, 256);
 
-            SpeechBubble name = new SpeechBubble(FlowerManager.flowerTypes[currentPlant].getName(), 410, Color.BLACK, Color.WHITE, 3);
+            name = new SpeechBubble(FlowerManager.flowerTypes[currentPlant].getName(), 410, Color.BLACK, Color.WHITE, 3);
             name.render(batch, renderer, 420, 480);
 
             name = new SpeechBubble(FlowerManager.flowerTypes[currentPlant].getDescription(), 400, Color.BLACK, Color.WHITE, 1);

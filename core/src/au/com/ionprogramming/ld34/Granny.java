@@ -1,5 +1,6 @@
 package au.com.ionprogramming.ld34;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.awt.*;
@@ -9,16 +10,16 @@ import java.awt.*;
  */
 public class Granny {
 
-    public static int drawPosX = 0;
-    public static int drawPosY = 0;
+    public static int drawPosX = 200;
+    public static int drawPosY = 200;
 
-    public static int targetX = 0;
-    public static int targetY = 0;
+    public static int targetX = 200;
+    public static int targetY = 200;
 
-    public static final int leftPath = 64;
-    public static final int rightPath = 500;
+    public static final int leftPath = 45;
+    public static final int rightPath = 935;
 
-    public static final int speed = 5;
+    public static final int speed = 2;
 
     public static boolean movingLeft = false;
     public static boolean movingRight = false;
@@ -26,15 +27,29 @@ public class Granny {
     public static int bedIndex = 0;
     public static int flowerIndex = 0;
 
-    public static int purse = 0;
+    public static int purse = 5;
     public static int[] seeds = new int[FlowerManager.flowerTypes.length];
     public static int waterCapacity = 20;
     public static int water = 20;
 
     public static void setTarget(int xClick, int yClick){
+        yClick = Gdx.graphics.getHeight() - yClick;
         Point p = FlowerManager.getClickedFlowerPosition(xClick, yClick);
-        targetX = FlowerManager.xOffset + p.y*FlowerManager.xStep;
-        targetY = FlowerManager.yOffset + (FlowerManager.numBeds - p.x - 1)*FlowerManager.yStep;
+        if(p!=null) {
+            targetX = FlowerManager.xOffset + p.y * FlowerManager.xStep;
+            targetY = FlowerManager.yOffset + (FlowerManager.numBeds - p.x - 1) * FlowerManager.yStep;
+            bedIndex = p.x;
+            flowerIndex = p.y;
+        }
+    }
+
+    public static int getRow(){
+        if(drawPosY != targetY){
+            return FlowerManager.numBeds - (drawPosY - FlowerManager.yOffset)/FlowerManager.yStep - 1;
+        }
+        else{
+            return bedIndex;
+        }
     }
 
     public static void update(SpriteBatch batch){
@@ -138,7 +153,24 @@ public class Granny {
         //TODO: Play error sound
     }
 
+    static int stage = 0;
+    static int counter = 0;
     public static void draw(SpriteBatch batch){
-
+        if(movingLeft || movingRight){
+            counter ++;
+            if(counter > 15){
+                counter = 0;
+                stage ++;
+                if (stage > 3){
+                    stage = 0;
+                }
+            }
+        }
+        if(movingRight) {
+            batch.draw(Images.granny[stage], drawPosX, drawPosY, Images.granny[stage].getWidth() * 2, Images.granny[stage].getHeight() * 2);
+        }
+        else {
+            batch.draw(Images.granny[stage], drawPosX, drawPosY, Images.granny[stage].getWidth() * 2, Images.granny[stage].getHeight() * 2, 0, 0, 32, 64, true, false);
+        }
     }
 }

@@ -61,6 +61,19 @@ public class SpeechBubble {
         this.width = width;
         glyph.setText(font, text, 0, text.length(), textCol, width, Align.left, true, null);
         height = glyph.height;
+    }public SpeechBubble(String text, float width, Color textCol, Color boxCol, float scale, boolean centered){
+        this.textCol = textCol;
+        this.boxCol = boxCol;
+//        font = new BitmapFont(new FileHandle("arial=15.fnt"), new FileHandle("arial-15.png"), false);
+
+        font = new BitmapFont();
+        glyph = new GlyphLayout();
+        font.getData().setScale(scale, scale);
+        font.setUseIntegerPositions(false);
+        this.text = text;
+        this.width = width;
+        glyph.setText(font, text, 0, text.length(), textCol, width, Align.center, true, null);
+        height = glyph.height;
     }
 
     public void render(SpriteBatch batch, ShapeRenderer r, float x, float y){
@@ -80,5 +93,13 @@ public class SpeechBubble {
         Gdx.gl.glDisable(GL20.GL_BLEND);
         batch.begin();
             font.draw(batch, glyph, x, y);
+    }
+
+    public void renderText(SpriteBatch batch, ShapeRenderer r, float x, float y){
+
+        batch.end();
+        batch.begin();
+            font.draw(batch, glyph, x, y);
+
     }
 }

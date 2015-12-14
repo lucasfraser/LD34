@@ -36,6 +36,7 @@ public class Images {
     public static Texture[] flower4;
     public static Texture[] flower5;
     public static Texture[] flower6;
+    public static Texture[] granny;
 
     public static Texture leftArrow;
     public static Texture rightArrow;
@@ -68,6 +69,7 @@ public class Images {
         flower4 = new Texture[]{new Texture("flowers/flowers_18.png"), new Texture("flowers/flowers_19.png"), new Texture("flowers/flowers_20.png"), new Texture("flowers/flowers_21.png"), new Texture("flowers/flowers_22.png"), new Texture("flowers/flowers_23.png")};
         flower5 = new Texture[]{new Texture("flowers/flowers_24.png"), new Texture("flowers/flowers_25.png"), new Texture("flowers/flowers_26.png"), new Texture("flowers/flowers_27.png"), new Texture("flowers/flowers_28.png"), new Texture("flowers/flowers_29.png")};
         flower6 = new Texture[]{new Texture("flowers/flowers_30.png"), new Texture("flowers/flowers_31.png"), new Texture("flowers/flowers_32.png"), new Texture("flowers/flowers_33.png"), new Texture("flowers/flowers_34.png"), new Texture("flowers/flowers_35.png")};
+        granny = new Texture[]{new Texture("granny_0.png"), new Texture("granny_1.png"), new Texture("granny_2.png"), new Texture("granny_3.png")};
 
         seasonDisplay = new Texture("seasons.png");
         selectionSeasons = new Texture("selection.png");
