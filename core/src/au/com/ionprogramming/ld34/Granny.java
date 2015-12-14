@@ -2,6 +2,8 @@ package au.com.ionprogramming.ld34;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.awt.*;
+
 /**
  * Created by Sam on 14/12/2015.
  */
@@ -10,6 +12,17 @@ public class Granny {
     public static int drawPosX = 0;
     public static int drawPosY = 0;
 
+    public static int targetX = 0;
+    public static int targetY = 0;
+
+    public static final int leftPath = 64;
+    public static final int rightPath = 500;
+
+    public static final int speed = 5;
+
+    public static boolean movingLeft = false;
+    public static boolean movingRight = false;
+
     public static int bedIndex = 0;
     public static int flowerIndex = 0;
 
@@ -17,6 +30,68 @@ public class Granny {
     public static int[] seeds = new int[FlowerManager.flowerTypes.length];
     public static int waterCapacity = 20;
     public static int water = 20;
+
+    public static void setTarget(int xClick, int yClick){
+        Point p = FlowerManager.getClickedFlowerPosition(xClick, yClick);
+        targetX = FlowerManager.xOffset + p.y*FlowerManager.xStep;
+        targetY = FlowerManager.yOffset + (FlowerManager.numBeds - p.x - 1)*FlowerManager.yStep;
+    }
+
+    public static void update(SpriteBatch batch){
+        if(drawPosY != targetY){
+            if(drawPosX != leftPath && drawPosX < (rightPath - leftPath)/2 + leftPath){
+                drawPosX -= speed;
+                movingLeft = true;
+                movingRight = false;
+                if(drawPosX < leftPath){
+                    drawPosX = leftPath;
+                }
+            }
+            else if(drawPosX != rightPath && drawPosX >= (rightPath - leftPath)/2 + leftPath){
+                drawPosX += speed;
+                movingLeft = false;
+                movingRight = true;
+                if(drawPosX > rightPath){
+                    drawPosX = rightPath;
+                }
+            }
+            else if(drawPosY > targetY){
+                drawPosY -= speed;
+                if(drawPosY < targetY){
+                    drawPosY = targetY;
+                }
+            }
+            else if(drawPosY < targetY){
+                drawPosY += speed;
+                if(drawPosY > targetY){
+                    drawPosY = targetY;
+                }
+            }
+        }
+        else if(drawPosX != targetX){
+            if(drawPosX < targetX){
+                drawPosX += speed;
+                movingLeft = false;
+                movingRight = true;
+                if(drawPosX > targetX){
+                    drawPosX = targetX;
+                }
+            }
+            else if(drawPosX > targetX){
+                drawPosX -= speed;
+                movingLeft = true;
+                movingRight = false;
+                if(drawPosX < targetX){
+                    drawPosX = targetX;
+                }
+            }
+        }
+        else{
+            movingLeft = false;
+            movingRight = false;
+        }
+        draw(batch);
+    }
 
     public static void buySeed(int flowerType){
         if(purse >= FlowerManager.flowerTypes[flowerType].getCost()){
@@ -40,7 +115,7 @@ public class Granny {
 
     public static void pickFlower(){
         if(FlowerManager.getFlower(bedIndex, flowerIndex) != null) {
-            int flowerType = 0;
+            int flowerType;
             for(flowerType = 0; flowerType < FlowerManager.flowerTypes.length; flowerType++){
                 if(FlowerManager.getFlower(bedIndex, flowerIndex).getClass().equals(FlowerManager.flowerTypes[flowerType].getClass())){
                     break;

@@ -3,6 +3,8 @@ package au.com.ionprogramming.ld34;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import java.awt.*;
+
 /**
  * Created by Sam on 13/12/2015.
  */
@@ -105,11 +107,24 @@ public class FlowerManager {
         getFlowerBed(bedIndex).removeFlower(flowerIndex);
     }
 
-    public Flower getClickedFlower(int xClick, int yClick){
+    public static Flower getClickedFlower(int xClick, int yClick){
         int bedIndex = Math.round((float) (yClick - yOffset)/yStep);
         if(bedIndex >= 0 && bedIndex < numBeds){
             if(Math.abs(yClick - (yOffset + bedIndex*yStep)) <= clickRange){
                 return flowerBeds[numBeds - bedIndex - 1].getClickedFlower(xClick);
+            }
+        }
+        return null;
+    }
+
+    public static Point getClickedFlowerPosition(int xClick, int yClick){
+        int bedIndex = Math.round((float) (yClick - yOffset)/yStep);
+        if(bedIndex >= 0 && bedIndex < numBeds){
+            if(Math.abs(yClick - (yOffset + bedIndex*yStep)) <= clickRange){
+                int flowerIndex = flowerBeds[numBeds - bedIndex - 1].getClickedFlowerPosition(xClick);
+                if(flowerIndex != -1) {
+                    return new Point(numBeds - bedIndex - 1, flowerIndex);
+                }
             }
         }
         return null;

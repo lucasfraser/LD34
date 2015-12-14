@@ -68,4 +68,14 @@ public class FlowerBed {
         }
         return null;
     }
+
+    public int getClickedFlowerPosition(int xClick){
+        int flowerIndex = Math.round((float) (xClick - FlowerManager.xOffset)/FlowerManager.xStep);
+        if(flowerIndex >= 0 && flowerIndex < FlowerManager.bedLength){
+            if(Math.abs(xClick - (FlowerManager.xOffset + flowerIndex*FlowerManager.xStep)) <= FlowerManager.clickRange){
+                return flowerIndex;
+            }
+        }
+        return -1;
+    }
 }
