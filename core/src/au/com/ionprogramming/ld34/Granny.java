@@ -10,10 +10,10 @@ import java.awt.*;
  */
 public class Granny {
 
-    public static int drawPosX = 200;
+    public static int drawPosX = 45;
     public static int drawPosY = 200;
 
-    public static int targetX = 200;
+    public static int targetX = 45;
     public static int targetY = 200;
 
     public static final int leftPath = 45;
@@ -30,7 +30,9 @@ public class Granny {
     public static int purse = 5;
     public static int[] seeds = new int[FlowerManager.flowerTypes.length];
     public static int waterCapacity = 20;
-    public static int water = 20;
+    public static int water = 15;
+
+    public static boolean headingHome = false;
 
     public static void setTarget(int xClick, int yClick){
         yClick = Gdx.graphics.getHeight() - yClick;
@@ -41,6 +43,10 @@ public class Granny {
             bedIndex = p.x;
             flowerIndex = p.y;
         }
+    }
+    public static void setManualTarget(int x, int y){
+        targetX = x;
+        targetY = y;
     }
 
     public static int getRow(){

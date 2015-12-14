@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.sun.corba.se.impl.orbutil.graph.Graph;
+import com.sun.org.apache.xpath.internal.operations.Gt;
 
 /**
  * Created by Lucas on 13/12/2015.
@@ -59,12 +60,13 @@ public class Graphics {
                 SeasonRendering.season = 0;
             }
         }
+        Granny.water = Granny.waterCapacity;
     }
 
     public void draw(){
 
         if(nextDayGo){
-            fadeOut -= 0.05f;
+            fadeOut -= 0.005f;
             if(fadeOut <= 0){
                 fadeOut = 0;
                 black = true;
@@ -72,7 +74,7 @@ public class Graphics {
             }
         }
         if(nextDayCome){
-            fadeOut += 0.05f;
+            fadeOut += 0.005f;
             if(fadeOut >= 1){
                 nextDayCome = false;
             }
@@ -85,7 +87,13 @@ public class Graphics {
             nextDayCome = true;
         }
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){
+        if(Gdx.input.justTouched() && Gdx.input.getX() > 70 && Gdx.input.getX() < 115 && Gdx.input.getY() > 120 &&Gdx.input.getY() < 205){ //70 205  --  115 120
+            Granny.headingHome = true;
+            Granny.setManualTarget(45, 390);
+        }
+
+        if(Granny.drawPosX == 45 && Granny.drawPosY == 390 && Granny.headingHome){
+            Granny.headingHome = false;
             nextDay();
         }
 
@@ -200,6 +208,10 @@ public class Graphics {
                 else if(SeasonRendering.day == 6){
                     HUD.draw(Images.selectionDays, 693, Gdx.graphics.getHeight() - 69);
                 }
+
+                HUD.draw(Images.waterBar, 10, 40, Images.waterBar.getWidth()/1.5f, Images.waterBar.getHeight()/1.5f);
+                float heightBar = (Images.waterBar.getHeight()/1.5f)/Granny.waterCapacity * Granny.water;
+                HUD.draw(Images.waterBarInside, 25, 40, Images.waterBarInside.getWidth()/1.5f-1, heightBar);
 
                 purse = new SpeechBubble("Purse:\n$" + Granny.purse, 500, Color.BLACK, Color.WHITE, 2, true);
                 purse.renderText(HUD, renderer, 590, 590);

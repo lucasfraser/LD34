@@ -42,6 +42,8 @@ public class Images {
     public static Texture rightArrow;
     public static Texture buy;
     public static Texture house;
+    public static Texture waterBar;
+    public static Texture waterBarInside;
 
     public static void loadImages(){
         ion = new Texture("IonProgrammingLogo.png");
@@ -81,6 +83,9 @@ public class Images {
         leftArrow = new Texture("leftArrow.png");
         rightArrow = new Texture("rightArrow.png");
         house = new Texture("house.png");
+
+        waterBar = new Texture("waterBar.png");
+        waterBarInside = new Texture("waterBarInside.png");
 
     }
 }
