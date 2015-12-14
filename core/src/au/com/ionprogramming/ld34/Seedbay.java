@@ -41,7 +41,7 @@ public class Seedbay {
                 }
             }
             if(Gdx.input.justTouched() && Gdx.input.getX() > 450 && Gdx.input.getX() < 550 && Gdx.input.getY() > 450 && Gdx.input.getY() < 510){//Buy
-
+                Granny.buySeed(currentPlant);
             }
             batch.draw(Images.seedBayIE, Gdx.graphics.getWidth() / 2 - Images.seedBayIE.getWidth() / 2, Gdx.graphics.getHeight() / 2 - Images.seedBayIE.getHeight() / 2);
 
