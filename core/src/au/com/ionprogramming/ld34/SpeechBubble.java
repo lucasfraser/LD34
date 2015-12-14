@@ -21,9 +21,34 @@ public class SpeechBubble {
     protected float border = 6f;
     protected Color textCol;
     protected Color boxCol;
+    protected boolean center;
+
+    public int getClickedIndex(int xClick, int yClick){
+        yClick = Gdx.graphics.getHeight() - yClick;
+        if(xClick > x && xClick < x + width) {
+            if(yClick > y - height && yClick < y) {
+                String[] things = text.split("\n");
+                String full = things[0];
+                int pos = 0;
+                for (int n = 0; n < things.length; n++) {
+                    if(n > 0){
+                        full += "\n" + things[n];
+                    }
+                    glyph.setText(font, full, 0, full.length(), textCol, width, center? Align.center : Align.left, true, null);
+                    pos += glyph.height;
+                    if(yClick > y - pos){
+                        glyph.setText(font, text, 0, text.length(), textCol, width, center? Align.center : Align.left, true, null);
+                        return n;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
 
     public SpeechBubble(String text, float width){
-        textCol = Color.WHITE;
+        center = false;
+        textCol = Color.SALMON;
         boxCol = new Color(0f, 0f, 0f, 0.5f);
         font = new BitmapFont();
         glyph = new GlyphLayout();
@@ -31,11 +56,12 @@ public class SpeechBubble {
         font.getData().setScale(1f, 1f);
         this.text = text;
         this.width = width;
-        glyph.setText(font, text, 0, text.length(), Color.SALMON, width, Align.left, true, null);
+        glyph.setText(font, text, 0, text.length(), textCol, width, Align.left, true, null);
         height = glyph.height;
     }
 
     public SpeechBubble(String text, float width, Color textCol, Color boxCol){
+        center = false;
         this.textCol = textCol;
         this.boxCol = boxCol;
         font = new BitmapFont();
@@ -48,6 +74,7 @@ public class SpeechBubble {
     }
 
     public SpeechBubble(String text, float width, Color textCol, Color boxCol, float scale){
+        center = false;
         this.textCol = textCol;
         this.boxCol = boxCol;
 //        font = new BitmapFont(new FileHandle("arial=15.fnt"), new FileHandle("arial-15.png"), false);
@@ -63,6 +90,7 @@ public class SpeechBubble {
     }
 
     public SpeechBubble(String text, float width, Color textCol, Color boxCol, float scale, boolean centered){
+        center = centered;
         this.textCol = textCol;
         this.boxCol = boxCol;
 //        font = new BitmapFont(new FileHandle("arial=15.fnt"), new FileHandle("arial-15.png"), false);
@@ -73,11 +101,13 @@ public class SpeechBubble {
         font.setUseIntegerPositions(false);
         this.text = text;
         this.width = width;
-        glyph.setText(font, text, 0, text.length(), textCol, width, Align.center, true, null);
+        glyph.setText(font, text, 0, text.length(), textCol, width, center? Align.center : Align.left, true, null);
         height = glyph.height;
     }
 
     public void render(SpriteBatch batch, ShapeRenderer r, float x, float y){
+        this.x = x;
+        this.y = y;
         batch.end();
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -97,6 +127,8 @@ public class SpeechBubble {
     }
 
     public void renderWithPoint(SpriteBatch batch, ShapeRenderer r, float x, float y){
+        this.x = x;
+        this.y = y;
         batch.end();
         Gdx.gl.glEnable(GL20.GL_BLEND);
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -117,6 +149,8 @@ public class SpeechBubble {
     }
 
     public void renderText(SpriteBatch batch, float x, float y){
-            font.draw(batch, glyph, x, y);
+        this.x = x;
+        this.y = y;
+        font.draw(batch, glyph, x, y);
     }
 }

@@ -49,9 +49,6 @@ public class FlowerManager {
     public static void initFlowerBeds(){
         for(int n = 0; n < numBeds; n++){
             flowerBeds[n] = new FlowerBed();
-//            for(int i = 0; i < bedLength; i++){
-//                addFlower(new Pumpkin5(), n, i);
-//            }
         }
     }
 
@@ -110,7 +107,7 @@ public class FlowerManager {
     public static Flower getClickedFlower(int xClick, int yClick){
         int bedIndex = Math.round((float) (yClick - yOffset)/yStep);
         if(bedIndex >= 0 && bedIndex < numBeds){
-            if(Math.abs(yClick - (yOffset + bedIndex*yStep)) <= clickRange){
+            if(Math.abs(yClick - (yOffset + bedIndex*yStep - 20)) <= clickRange){
                 return flowerBeds[numBeds - bedIndex - 1].getClickedFlower(xClick);
             }
         }
@@ -120,7 +117,7 @@ public class FlowerManager {
     public static Point getClickedFlowerPosition(int xClick, int yClick){
         int bedIndex = Math.round((float) (yClick - yOffset)/yStep);
         if(bedIndex >= 0 && bedIndex < numBeds){
-            if(Math.abs(yClick - (yOffset + bedIndex*yStep)) <= clickRange){
+            if(Math.abs(yClick - (yOffset + bedIndex*yStep - 20)) <= clickRange){
                 int flowerIndex = flowerBeds[numBeds - bedIndex - 1].getClickedFlowerPosition(xClick);
                 if(flowerIndex != -1) {
                     return new Point(numBeds - bedIndex - 1, flowerIndex);

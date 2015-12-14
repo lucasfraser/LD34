@@ -1,11 +1,13 @@
 package au.com.ionprogramming.ld34;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+/**
+ * Created by Lucas on 13/12/2015.
+ */
 public class Graphics {
 
     SpriteBatch titleBatch;
@@ -65,7 +67,7 @@ public class Graphics {
     public void draw(){
 
         if(nextDayGo){
-            fadeOut -= 0.005f;
+            fadeOut -= 0.01f;
             if(fadeOut <= 0){
                 fadeOut = 0;
                 black = true;
@@ -73,7 +75,7 @@ public class Graphics {
             }
         }
         if(nextDayCome){
-            fadeOut += 0.005f;
+            fadeOut += 0.01f;
             if(fadeOut >= 1){
                 fadeOut = 1;
                 nextDayCome = false;
@@ -107,7 +109,6 @@ public class Graphics {
                 tint += 0.01f;
                 if (tint >= 1) {
                     fadeIn = false;
-
                 }
             }
             if (!fadeIn) {
@@ -138,8 +139,42 @@ public class Graphics {
                     MusicManger.updateMusic();
                 }
             }
-            if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !Seedbay.inSeedBay){
-                Granny.setTarget(Gdx.input.getX(), Gdx.input.getY());
+            if(Gdx.input.justTouched()){
+                if(Granny.viewingSeeds){
+                    int n = Granny.seedBubble.getClickedIndex(Gdx.input.getX(), Gdx.input.getY());
+                    if(n != -1){
+                        int flowerType = Granny.getFlowerType(n);
+                        if(flowerType != -1){
+                            Granny.plantFlower(flowerType);
+                            Granny.viewingMenu = false;
+                        }
+                        Granny.viewingSeeds = false;
+                    }
+                }
+                else if(Granny.viewingMenu){
+                    int n = Granny.bubble.getClickedIndex(Gdx.input.getX(), Gdx.input.getY());
+                    if(n == -1){
+                        Granny.viewingMenu = false;
+                    }
+                    else {
+                        if (Granny.emptySpot) {
+                            if (n == 0) {
+                                Granny.generateSeedBubble();
+                            }
+                        } else {
+                            if (n == 1) {
+                                Granny.waterFlower();
+                                Granny.viewingMenu = false;
+                            } else if (n == 2) {
+                                Granny.pickFlower();
+                                Granny.viewingMenu = false;
+                            }
+                        }
+                    }
+                }
+                else if(!Seedbay.inSeedBay){
+                    Granny.setTarget(Gdx.input.getX(), Gdx.input.getY());
+                }
             }
 
             mainGame.begin();
@@ -177,7 +212,6 @@ public class Graphics {
 
             HUD.begin();
                 HUD.draw(Images.seasonDisplay, Gdx.graphics.getWidth() / 2 - Images.seasonDisplay.getWidth() / 2, Gdx.graphics.getHeight() - Images.seasonDisplay.getHeight() / 2 - 20);
-
 //
 //                System.out.println(Gdx.input.getX() + ", " + Gdx.input.getY());
 

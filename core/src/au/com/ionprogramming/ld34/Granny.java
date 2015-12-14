@@ -37,6 +37,7 @@ public class Granny {
     public static boolean headingHome = false;
     public static boolean manualTarget = false;
     public static boolean viewingMenu = false;
+    public static boolean emptySpot = false;
     public static boolean viewingSeeds = false;
 
     public static SpeechBubble bubble;
@@ -46,6 +47,7 @@ public class Granny {
         yClick = Gdx.graphics.getHeight() - yClick;
         Point p = FlowerManager.getClickedFlowerPosition(xClick, yClick);
         if(p!=null) {
+            viewingMenu = true;
             headingHome = false;
             manualTarget = false;
             targetX = FlowerManager.xOffset + p.y * FlowerManager.xStep;
@@ -54,10 +56,12 @@ public class Granny {
             flowerIndex = p.y;
             String text;
             if(FlowerManager.getFlower(p.x, p.y) != null) {
-                text = FlowerManager.getFlower(p.x, p.y).getName() + "\nWATER?\nPICK?\nEXIT?";
+                text = FlowerManager.getFlower(p.x, p.y).getName() + "\nWATER?\nPICK?";
+                emptySpot = false;
             }
             else{
-                text = "PLANT SEED?\nEXIT?";
+                text = "PLANT SEED?";
+                emptySpot = true;
             }
             bubble = new SpeechBubble(text, 120, Color.SALMON, new Color(0f, 0f, 0f, 0.7f), 1, true);
         }
@@ -68,11 +72,24 @@ public class Granny {
         String text = "";
         for(int n = 0; n < seeds.length; n++){
             if(seeds[n] > 0){
-                text += "\n" + FlowerManager.flowerTypes[n].getName() + ": " + seeds[n];
+                text += FlowerManager.flowerTypes[n].getName() + ": " + seeds[n] + "\n";
             }
         }
-        text += "\nEXIT?";
+        text += "EXIT?";
         seedBubble = new SpeechBubble(text, 200, Color.SALMON, new Color(0f, 0f, 0f, 0.7f), 1.5f, true);
+    }
+
+    public static int getFlowerType(int menuItem){
+        int i = -1;
+        for(int n = 0; n < seeds.length; n++){
+            if(seeds[n] > 0){
+                i++;
+            }
+            if(i == menuItem){
+                return n;
+            }
+        }
+        return -1;
     }
 
     public static void setManualTarget(int x, int y){
@@ -110,12 +127,28 @@ public class Granny {
             }
             else if(drawPosY > targetY){
                 drawPosY -= speed;
+                if(drawPosX == leftPath){
+                    movingLeft = false;
+                    movingRight = true;
+                }
+                else {
+                    movingLeft = true;
+                    movingRight = false;
+                }
                 if(drawPosY < targetY){
                     drawPosY = targetY;
                 }
             }
             else if(drawPosY < targetY){
                 drawPosY += speed;
+                if(drawPosX == leftPath){
+                    movingLeft = false;
+                    movingRight = true;
+                }
+                else {
+                    movingLeft = true;
+                    movingRight = false;
+                }
                 if(drawPosY > targetY){
                     drawPosY = targetY;
                 }
@@ -147,16 +180,11 @@ public class Granny {
     }
 
     public static void drawBubble(SpriteBatch batch, ShapeRenderer r){
-        if(!manualTarget && bubble != null && targetX == drawPosX && targetY == drawPosY){
-            viewingMenu = true;
+        if(viewingMenu && !manualTarget && bubble != null && targetX == drawPosX && targetY == drawPosY){
             bubble.renderWithPoint(batch, r, drawPosX - bubble.width / 2, drawPosY - 25 * FlowerManager.scale);
             if(viewingSeeds){
-                viewingMenu = false;
                 seedBubble.render(batch, r, Gdx.graphics.getWidth()/2 - seedBubble.width/2, Gdx.graphics.getHeight()/2 + seedBubble.height/2);
             }
-        }
-        else{
-            viewingMenu = false;
         }
     }
 
@@ -194,6 +222,7 @@ public class Granny {
             else if(FlowerManager.getFlower(bedIndex, flowerIndex).getStage() == 3){
                 purse += FlowerManager.getFlower(bedIndex, flowerIndex).getValue();
             }
+            FlowerManager.addFlower(null, bedIndex, flowerIndex);
         }
     }
 

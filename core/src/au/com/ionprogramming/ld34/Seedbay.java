@@ -22,11 +22,11 @@ public class Seedbay {
     public static void render(SpriteBatch batch, ShapeRenderer renderer) {
         batch.draw(Images.sbay, Gdx.graphics.getWidth() - Images.sbay.getWidth()*4 - 20, Gdx.graphics.getHeight() - Images.sbay.getHeight()*4 - 20, Images.sbay.getWidth()*4, Images.sbay.getHeight()*4);
 
-        if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.getX() > Gdx.graphics.getWidth() - Images.sbay.getWidth()*4 - 20 && Gdx.input.getX() < Gdx.graphics.getWidth() - 20 && Gdx.input.getY() > 20 && Gdx.input.getY() < 20 + Images.sbay.getHeight()*4){
+        if(Gdx.input.justTouched() && Gdx.input.getX() > Gdx.graphics.getWidth() - Images.sbay.getWidth()*4 - 20 && Gdx.input.getX() < Gdx.graphics.getWidth() - 20 && Gdx.input.getY() > 20 && Gdx.input.getY() < 20 + Images.sbay.getHeight()*4){
             inSeedBay = true;
         }
 
-        if(inSeedBay && Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.getX() > 857 && Gdx.input.getX() < 882 && Gdx.input.getY() > 77 && Gdx.input.getY() < 107){
+        if(inSeedBay && Gdx.input.justTouched() && Gdx.input.getX() > 857 && Gdx.input.getX() < 882 && Gdx.input.getY() > 77 && Gdx.input.getY() < 107){
             inSeedBay = false;
         }
 
