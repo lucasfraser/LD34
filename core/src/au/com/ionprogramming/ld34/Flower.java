@@ -10,7 +10,7 @@ abstract class Flower {
 
     private int lastWater = 0;
     private int stageTime = 0;
-    private int stage = 0;
+    private int stage = 3;
     private int timer = 0;
     private Texture getImage(){
         return getImage(stage);

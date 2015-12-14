@@ -18,7 +18,7 @@ public class Seedbay {
 
     static int currentPlant = 0;
 
-    public static void render(SpriteBatch batch) {
+    public static void render(SpriteBatch batch, ShapeRenderer renderer) {
         batch.draw(Images.sbay, Gdx.graphics.getWidth() - Images.sbay.getWidth()*4 - 20, Gdx.graphics.getHeight() - Images.sbay.getHeight()*4 - 20, Images.sbay.getWidth()*4, Images.sbay.getHeight()*4);
 
         if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && Gdx.input.getX() > Gdx.graphics.getWidth() - Images.sbay.getWidth()*4 - 20 && Gdx.input.getX() < Gdx.graphics.getWidth() - 20 && Gdx.input.getY() > 20 && Gdx.input.getY() < 20 + Images.sbay.getHeight()*4){
@@ -49,13 +49,27 @@ public class Seedbay {
             batch.draw(Images.leftArrow, Gdx.graphics.getWidth() / 2 - Images.leftArrow.getWidth() / 2- 300, 90);
             batch.draw(Images.rightArrow, Gdx.graphics.getWidth() / 2  - Images.rightArrow.getWidth() / 2+ 300, 90);
 
-            batch.draw(FlowerManager.flowerTypes[currentPlant].getImage(3), 280, 300, 128, 256);
+            batch.draw(FlowerManager.flowerTypes[currentPlant].getImage(3), 280, 290, 128, 256);
 
             SpeechBubble name = new SpeechBubble(FlowerManager.flowerTypes[currentPlant].getName(), 410, Color.BLACK, Color.WHITE, 3);
-            name.render(batch, new ShapeRenderer(), 400, 430);
+            name.render(batch, renderer, 420, 480);
 
             name = new SpeechBubble(FlowerManager.flowerTypes[currentPlant].getDescription(), 400, Color.BLACK, Color.WHITE, 1);
-            name.render(batch, new ShapeRenderer(), 400, 380);
+            name.render(batch, renderer, 420, 380);
+
+            name = new SpeechBubble("$" + FlowerManager.flowerTypes[currentPlant].getCost() + ".00", 400, Color.RED, Color.WHITE, 3);
+            name.render(batch, renderer, 280, 280);
+
+            name = new SpeechBubble("Fully Grown Value: $" + FlowerManager.flowerTypes[currentPlant].getValue(), 400, Color.GOLD, Color.WHITE, 2);
+            name.render(batch, renderer, 280, 200);
+
+            name = new SpeechBubble("Growth Rate: " + FlowerManager.flowerTypes[currentPlant].getGrowthRate(), 400, Color.BLUE, Color.WHITE, 2);
+            name.render(batch, renderer, 450, 290);
+
+            name = new SpeechBubble("Death Rate: " + FlowerManager.flowerTypes[currentPlant].getDeathRate(), 400, Color.BLUE, Color.WHITE, 2);
+            name.render(batch, renderer, 450, 250);
+
+
         }
     }
 }

@@ -1,8 +1,10 @@
 package au.com.ionprogramming.ld34;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 /**
  * Created by Lucas on 13/12/2015.
@@ -13,23 +15,82 @@ public class Graphics {
     SpriteBatch mainGame;
     SpriteBatch seasonalOverlay;
     SpriteBatch HUD;
+    ShapeRenderer renderer;
 
     //TITLE SCREEN
-    boolean titleScreen = false;
+    boolean titleScreen = true;
     float tint = 0;
     boolean fadeIn = true;
+
+    float fadeOut = 1;
+
+    static boolean nextDayGo = false;
+    static boolean nextDayCome = false;
+    static boolean black = false;
+
 
     public Graphics(){
         titleBatch = new SpriteBatch();
         mainGame = new SpriteBatch();
         seasonalOverlay = new SpriteBatch();
         HUD = new SpriteBatch();
+        renderer = new ShapeRenderer();
         Images.loadImages();
         SeasonRendering.initSeasons();
         FlowerManager.initFlowerBeds();
     }
+    public static void nextDay(){
+        if(!nextDayGo && !nextDayCome) {
+            nextDayGo = true;
+            Seedbay.inSeedBay = false;
+        }
+    }
+
+    public static void toggleNextDay(){
+
+        SeasonRendering.day ++;
+        if (SeasonRendering.day > 6){
+            SeasonRendering.day = 0;
+            SeasonRendering.season++;
+            if(SeasonRendering.season>3){
+                SeasonRendering.season = 0;
+            }
+        }
+    }
 
     public void draw(){
+
+        if(nextDayGo){
+            fadeOut -= 0.05f;
+            if(fadeOut <= 0){
+                fadeOut = 0;
+                black = true;
+                nextDayGo = false;
+            }
+        }
+        if(nextDayCome){
+            fadeOut += 0.05f;
+            if(fadeOut >= 1){
+                nextDayCome = false;
+            }
+        }
+
+        if(black){
+            black = false;
+            toggleNextDay();
+            FlowerManager.update();
+            nextDayCome = true;
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)){
+            nextDay();
+        }
+
+        mainGame.setColor(fadeOut, fadeOut, fadeOut, 1);
+        seasonalOverlay.setColor(fadeOut, fadeOut, fadeOut, 1);
+        HUD.setColor(fadeOut, fadeOut, fadeOut, 1);
+        renderer.setColor(fadeOut,fadeOut,fadeOut,1);
+
         if(titleScreen) { //TITLE SCREEN RENDERING
             if (fadeIn) {
                 tint += 0.01f;
@@ -57,11 +118,14 @@ public class Graphics {
         else{ //GAME RENDERING
 
             mainGame.begin();
+
+                mainGame.draw(Images.grass, 0, 0);
                 if(SeasonRendering.season == 0){
                     mainGame.draw(Images.summerBanner, 0, 450);
                 }
                 else if(SeasonRendering.season == 1){
                     mainGame.draw(Images.autumnBanner, 0, 450);
+//                    mainGame.draw(Images.autumnFloor, 0, 0);
                 }
                 else if(SeasonRendering.season == 2){
                     mainGame.draw(Images.winterBanner, 0, 450);
@@ -69,10 +133,10 @@ public class Graphics {
                 else if(SeasonRendering.season == 3){
                     mainGame.draw(Images.springBanner, 0, 450);
                 }
-                mainGame.draw(Images.grass, 0, 0);
                 for(int i = 0; i < 16; i++){
                     mainGame.draw(Images.fence, i * Images.fence.getWidth()*2, 435, 64, 64);
                 }
+                mainGame.draw(Images.house, -10, 395, 200, 250);
                 FlowerManager.drawBedDirt(mainGame);
                 for(int n = 0; n < FlowerManager.numBeds; n++) {
                     FlowerManager.drawBed(mainGame, n);
@@ -85,7 +149,7 @@ public class Graphics {
 
             HUD.begin();
                 HUD.draw(Images.seasonDisplay, Gdx.graphics.getWidth() / 2 - Images.seasonDisplay.getWidth() / 2, Gdx.graphics.getHeight() - Images.seasonDisplay.getHeight() / 2 - 20);
-                Seedbay.render(HUD);
+                Seedbay.render(HUD, renderer);
 //
 //                System.out.println(Gdx.input.getX() + ", " + Gdx.input.getY());
 

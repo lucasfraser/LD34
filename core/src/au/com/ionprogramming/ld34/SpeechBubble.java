@@ -1,6 +1,8 @@
 package au.com.ionprogramming.ld34;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -49,6 +51,8 @@ public class SpeechBubble {
     public SpeechBubble(String text, float width, Color textCol, Color boxCol, float scale){
         this.textCol = textCol;
         this.boxCol = boxCol;
+//        font = new BitmapFont(new FileHandle("arial=15.fnt"), new FileHandle("arial-15.png"), false);
+
         font = new BitmapFont();
         glyph = new GlyphLayout();
         font.getData().setScale(scale, scale);
@@ -74,7 +78,6 @@ public class SpeechBubble {
             r.arc(x + width, y - height, border, 270, 90);
         r.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
-
         batch.begin();
             font.draw(batch, glyph, x, y);
     }

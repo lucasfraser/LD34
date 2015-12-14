@@ -26,6 +26,7 @@ public class Images {
     public static Texture summerBanner;
     public static Texture winterBanner;
     public static Texture autumnBanner;
+    public static Texture autumnFloor;
     public static Texture springBanner;
     public static Texture fence;
 
@@ -39,6 +40,7 @@ public class Images {
     public static Texture leftArrow;
     public static Texture rightArrow;
     public static Texture buy;
+    public static Texture house;
 
     public static void loadImages(){
         ion = new Texture("IonProgrammingLogo.png");
@@ -56,6 +58,7 @@ public class Images {
         summerBanner = new Texture("summer.png");
         winterBanner = new Texture("winter.png");
         autumnBanner = new Texture("autumnBanner.png");
+        autumnFloor = new Texture("autumnFloor.png");
         springBanner = new Texture("springBanner.png");
         fence = new Texture("fence.png");
 
@@ -75,6 +78,7 @@ public class Images {
         buy = new Texture("buy.png");
         leftArrow = new Texture("leftArrow.png");
         rightArrow = new Texture("rightArrow.png");
+        house = new Texture("house.png");
 
     }
 }

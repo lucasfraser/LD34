@@ -30,8 +30,6 @@ public class FlowerManager {
 
     public static FlowerBed[] flowerBeds = new FlowerBed[numBeds];
 
-    static SpeechBubble bubble = new SpeechBubble("Hello there Dick Nose Joe! How fare thee this fine day?\nDo\nnew\nlines\nand\ttabs\nwork?", 100);
-
     public static Flower[] flowerTypes = new Flower[]{
             new Buttercup(),
             new Buttermug(),
@@ -81,7 +79,6 @@ public class FlowerManager {
                 }
             }
         }
-        bubble.render(batch, new ShapeRenderer(), 256, 256);
     }
 
     public static void drawBed(SpriteBatch batch, int bedIndex){
