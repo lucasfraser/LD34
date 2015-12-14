@@ -65,17 +65,17 @@ public class SpeechBubble {
         Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         r.begin(ShapeRenderer.ShapeType.Filled);
             r.setColor(boxCol);
-            r.rect(x - border, y, width + border * 2, height);
-            r.rect(x, y - border, width, border);
-            r.rect(x, y + height, width, border);
-            r.arc(x, y + height, border, 90, 90);
-            r.arc(x, y, border, 180, 90);
-            r.arc(x + width, y + height, border, 0, 90);
-            r.arc(x + width, y, border, 270, 90);
+            r.rect(x - border, y - height, width + border * 2, height);
+            r.rect(x, y - border - height, width, border);
+            r.rect(x, y, width, border);
+            r.arc(x, y, border, 90, 90);
+            r.arc(x, y - height, border, 180, 90);
+            r.arc(x + width, y, border, 0, 90);
+            r.arc(x + width, y - height, border, 270, 90);
         r.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
 
         batch.begin();
-            font.draw(batch, glyph, x, y + height);
+            font.draw(batch, glyph, x, y);
     }
 }
