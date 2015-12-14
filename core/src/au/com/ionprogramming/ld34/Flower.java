@@ -34,6 +34,7 @@ abstract class Flower {
         else if(stageTime >= getGrowthRate()){
             if(stage < 3){
                 stage++;
+                stageTime = 0;
             }
             else if(stage == 4){
                 stage = 3;
