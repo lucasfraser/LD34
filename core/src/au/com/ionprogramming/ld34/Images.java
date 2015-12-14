@@ -36,6 +36,10 @@ public class Images {
     public static Texture[] flower5;
     public static Texture[] flower6;
 
+    public static Texture leftArrow;
+    public static Texture rightArrow;
+    public static Texture buy;
+
     public static void loadImages(){
         ion = new Texture("IonProgrammingLogo.png");
         lucas = new Texture("lucas.png");
@@ -67,5 +71,10 @@ public class Images {
 
         dayDisplay = new Texture("days.png");
         selectionDays = new Texture("selectionDays.png");
+
+        buy = new Texture("buy.png");
+        leftArrow = new Texture("leftArrow.png");
+        rightArrow = new Texture("rightArrow.png");
+
     }
 }

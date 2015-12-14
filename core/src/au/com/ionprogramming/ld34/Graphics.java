@@ -1,6 +1,5 @@
 package au.com.ionprogramming.ld34;
 
-import au.com.ionprogramming.ld34.flowers.FlowerManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

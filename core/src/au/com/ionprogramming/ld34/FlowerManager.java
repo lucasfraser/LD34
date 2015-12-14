@@ -1,7 +1,5 @@
-package au.com.ionprogramming.ld34.flowers;
+package au.com.ionprogramming.ld34;
 
-import au.com.ionprogramming.ld34.Images;
-import au.com.ionprogramming.ld34.SpeechBubble;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
