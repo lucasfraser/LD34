@@ -55,6 +55,12 @@ public class FlowerManager {
         }
     }
 
+    public static void update(){
+        for(int n = 0; n < flowerBeds.length; n++){
+            flowerBeds[n].update();
+        }
+    }
+
     public static void drawBedDirt(SpriteBatch batch){
         int imgW = Images.bedC.getWidth()*scale;
         int imgH = Images.bedC.getHeight()*scale;

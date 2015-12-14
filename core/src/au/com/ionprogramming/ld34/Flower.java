@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 abstract class Flower {
 
-    private int stage = 3;
+    private int lastWater = 0;
+    private int stageTime = 0;
+    private int stage = 0;
     private int timer = 0;
     private Texture getImage(){
         return getImage(stage);
@@ -17,6 +19,38 @@ abstract class Flower {
         int imgW = getImage().getWidth();
         int imgH = getImage().getHeight();
         batch.draw(getImage(), x - imgW/2*FlowerManager.scale, y - imgH/2*FlowerManager.scale, imgW*FlowerManager.scale, imgH*FlowerManager.scale);
+    }
+    public void update(){
+        lastWater++;
+        stageTime++;
+        if(lastWater > getDeathRate()){
+            if(stage == 3){
+                stage = 4;
+            }
+            else if(stage > 0){
+                stage = 5;
+            }
+        }
+        else if(stageTime >= getGrowthRate()){
+            if(stage < 3){
+                stage++;
+            }
+            else if(stage == 4){
+                stage = 3;
+            }
+        }
+    }
+    public void setLastWater(int lastWater){
+        this.lastWater = lastWater;
+    }
+    public int getLastWater(){
+        return lastWater;
+    }
+    public void setStageTime(int stageTime){
+        this.stageTime = stageTime;
+    }
+    public int getStageTime(){
+        return stageTime;
     }
     public void setStage(int stage){
         this.stage = stage;

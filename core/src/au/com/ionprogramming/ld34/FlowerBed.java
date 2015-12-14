@@ -13,6 +13,14 @@ public class FlowerBed {
         flowers = new Flower[FlowerManager.bedLength];
     }
 
+    public void update(){
+        for(int n = 0; n < flowers.length; n++){
+            if(flowers[n] != null){
+                flowers[n].update();
+            }
+        }
+    }
+
     public void draw(SpriteBatch batch, int y){
         for(int n = 0; n < FlowerManager.bedLength; n++){
             if(flowers[n] != null) {
