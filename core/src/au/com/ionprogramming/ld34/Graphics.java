@@ -6,9 +6,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-/**
- * Created by Lucas on 13/12/2015.
- */
 public class Graphics {
 
     SpriteBatch titleBatch;
@@ -18,7 +15,8 @@ public class Graphics {
     ShapeRenderer renderer;
 
     //TITLE SCREEN
-    boolean titleScreen = false;
+    boolean titleScreen = true;
+    boolean nameShown = false;
     float tint = 0;
     boolean fadeIn = true;
 
@@ -40,6 +38,7 @@ public class Graphics {
         Images.loadImages();
         SeasonRendering.initSeasons();
         FlowerManager.initFlowerBeds();
+        MusicManger.loadMusic();
     }
     public static void nextDay(){
         if(!nextDayGo && !nextDayCome) {
@@ -57,10 +56,12 @@ public class Graphics {
             if(SeasonRendering.season>3){
                 SeasonRendering.season = 0;
             }
+            MusicManger.updateMusic();
         }
         Granny.water = Granny.waterCapacity;
     }
 
+    int nameCount = 0;
     public void draw(){
 
         if(nextDayGo){
@@ -106,6 +107,7 @@ public class Graphics {
                 tint += 0.01f;
                 if (tint >= 1) {
                     fadeIn = false;
+
                 }
             }
             if (!fadeIn) {
@@ -117,16 +119,25 @@ public class Graphics {
             }
 
             titleBatch.begin();
-
                 titleBatch.setColor(new Color(tint, tint, tint, 1));
                 titleBatch.draw(Images.ion, Gdx.graphics.getWidth() / 2 - Images.ion.getWidth() / 2, Gdx.graphics.getHeight() - Images.ion.getHeight() - 50);
-                titleBatch.draw(Images.lucas, Gdx.graphics.getWidth() / 2 - Images.lucas.getWidth() / 2, 50);
+                titleBatch.draw(Images.sam, Gdx.graphics.getWidth() / 2 - Images.sam.getWidth() / 2, 50);
+                titleBatch.draw(Images.poppy, Gdx.graphics.getWidth() / 2 - Images.poppy.getWidth() / 2+200, 50);
+                titleBatch.draw(Images.lucas, Gdx.graphics.getWidth() / 2 - Images.lucas.getWidth() / 2 - 200, 50);
 
             titleBatch.end();
         }
 
         else{ //GAME RENDERING
 
+
+            if(!nameShown){
+                nameCount++;
+                if(nameCount >= 100){
+                    nameShown = true;
+                    MusicManger.updateMusic();
+                }
+            }
             if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) && !Seedbay.inSeedBay){
                 Granny.setTarget(Gdx.input.getX(), Gdx.input.getY());
             }
@@ -166,7 +177,7 @@ public class Graphics {
 
             HUD.begin();
                 HUD.draw(Images.seasonDisplay, Gdx.graphics.getWidth() / 2 - Images.seasonDisplay.getWidth() / 2, Gdx.graphics.getHeight() - Images.seasonDisplay.getHeight() / 2 - 20);
-                Seedbay.render(HUD, renderer);
+
 //
 //                System.out.println(Gdx.input.getX() + ", " + Gdx.input.getY());
 
@@ -215,6 +226,10 @@ public class Graphics {
                 purse = new SpeechBubble("Purse:\n$" + Granny.purse, 500, Color.BLACK, Color.WHITE, 2, true);
                 purse.renderText(HUD, 590, 590);
                 Granny.drawBubble(HUD, renderer);
+            Seedbay.render(HUD, renderer);
+            if(!nameShown) {
+                HUD.draw(Images.logo, Gdx.graphics.getWidth() / 2 - Images.logo.getWidth() / 2, Gdx.graphics.getHeight() / 2 - Images.logo.getHeight() / 2);
+            }
             HUD.end();
         }
     }
