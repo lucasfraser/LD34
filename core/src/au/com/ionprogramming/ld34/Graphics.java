@@ -5,8 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.sun.corba.se.impl.orbutil.graph.Graph;
-import com.sun.org.apache.xpath.internal.operations.Gt;
 
 /**
  * Created by Lucas on 13/12/2015.
@@ -76,6 +74,7 @@ public class Graphics {
         if(nextDayCome){
             fadeOut += 0.005f;
             if(fadeOut >= 1){
+                fadeOut = 1;
                 nextDayCome = false;
             }
         }
@@ -214,7 +213,8 @@ public class Graphics {
                 HUD.draw(Images.waterBarInside, 25, 40, Images.waterBarInside.getWidth()/1.5f-1, heightBar);
 
                 purse = new SpeechBubble("Purse:\n$" + Granny.purse, 500, Color.BLACK, Color.WHITE, 2, true);
-                purse.renderText(HUD, renderer, 590, 590);
+                purse.renderText(HUD, 590, 590);
+                Granny.drawBubble(HUD, renderer);
             HUD.end();
         }
     }

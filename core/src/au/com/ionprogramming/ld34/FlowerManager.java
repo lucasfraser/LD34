@@ -13,15 +13,15 @@ public class FlowerManager {
     public static final int scale = 2;
 
     public static final int bedLength = 10;
-    public static final int numBeds = 4;
+    public static final int numBeds = 3;
 
     public static final int numStages = 6;
 
     //Draw offsets
     public static final int xOffset = 150;
-    public static final int yOffset = 100;
+    public static final int yOffset = 140;
     public static final int xStep = 40*scale;
-    public static final int yStep = 48*scale;
+    public static final int yStep = 58*scale;
 
     public static final int clickRange = 16*scale;
 
@@ -49,9 +49,9 @@ public class FlowerManager {
     public static void initFlowerBeds(){
         for(int n = 0; n < numBeds; n++){
             flowerBeds[n] = new FlowerBed();
-            for(int i = 0; i < bedLength; i++){
-                addFlower(new Pumpkin5(), n, i);
-            }
+//            for(int i = 0; i < bedLength; i++){
+//                addFlower(new Pumpkin5(), n, i);
+//            }
         }
     }
 
